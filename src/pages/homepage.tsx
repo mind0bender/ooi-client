@@ -10,7 +10,7 @@ export default function Homepage(): JSX.Element {
   return (
     <main className={`flex flex-col grow`}>
       <nav
-        className={`flex w-full px-4 py-3 border-b border-b-slate-300 justify-around items-center`}
+        className={`flex w-full px-4 py-3 border-b border-b-blue-950 justify-around items-center`}
       >
         <Link to={`/`}>
           <h3 className={`text-3xl font-bold`}>Ooi</h3>
@@ -26,7 +26,7 @@ export default function Homepage(): JSX.Element {
             </Link>
           </li>
           <li>
-            <Link to={`/create`}>
+            <Link to={`/chats/new`}>
               <div className={`bg-blue-600 px-4 py-1 rounded-md text-white`}>
                 create
               </div>
@@ -35,10 +35,10 @@ export default function Homepage(): JSX.Element {
         </ul>
       </nav>
       <section
-        className={`grow flex flex-col items-center justify-center bg-black dark:bg-blue-200`}
+        className={`grow flex flex-col items-center justify-center bg-black dark:bg-gradient-to-b dark:from-blue-950 dark:to-slate-950`}
       >
         <div
-          className={`bg-gradient-to-b from-slate-100 dark:from-slate-950 to-slate-950 dark:to-blue-200 bg-clip-text text-transparent`}
+          className={`bg-gradient-to-b from-slate-100 dark:to-slate-950 to-slate-950 dark:from-blue-200 bg-clip-text text-transparent`}
         >
           <div className={`flex flex-col gap-4 text-xl md:text-3xl`}>
             <div>

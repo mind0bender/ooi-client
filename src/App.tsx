@@ -4,11 +4,28 @@ import SocketProvider from "./components/contextproviders/socketprovider";
 import PageNotFound from "./pages/404";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import CreatePage from "./pages/create";
+import ChatsPage from "./pages/chats";
+import ChatPage from "./pages/chat";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Homepage />,
+  },
+  {
+    path: "/chats",
+    element: <ChatsPage />,
+    children: [
+      {
+        path: "new",
+        element: <CreatePage />,
+      },
+      {
+        path: ":chatId",
+        element: <ChatPage />,
+      },
+    ],
   },
   {
     path: "*",
