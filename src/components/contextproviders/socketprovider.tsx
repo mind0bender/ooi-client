@@ -5,6 +5,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import { toast } from "react-toastify";
 import { Socket, io } from "socket.io-client";
 
 export const socketContext: Context<Socket | null> =
@@ -18,6 +19,8 @@ export default function SocketProvider({ children }: PropsWithChildren) {
 
     soc.on("connected", () => {
       console.log("connected to socket.io server");
+
+      toast.success("Connected to server");
       setSocket(soc);
     });
 
