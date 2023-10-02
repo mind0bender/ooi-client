@@ -1,11 +1,16 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Homepage from "./pages/homepage";
 import SocketProvider from "./components/contextproviders/socketprovider";
+import PageNotFound from "./pages/404";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Homepage />,
+  },
+  {
+    path: "*",
+    element: <PageNotFound />,
   },
 ]);
 
