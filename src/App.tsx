@@ -1,12 +1,13 @@
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import Homepage from "./pages/homepage";
+import Homepage from "./pages";
 import SocketProvider from "./components/contextproviders/socketprovider";
 import PageNotFound from "./pages/404";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import CreatePage from "./pages/create";
+import CreatePage from "./pages/chats.new";
 import ChatsPage from "./pages/chats";
-import ChatPage from "./pages/chat";
+import ChatPage from "./pages/chats.$";
+import JoinChatPage from "./pages/chats.join";
 
 const router = createBrowserRouter([
   {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
       {
         path: "new",
         element: <CreatePage />,
+      },
+      {
+        path: "join",
+        element: <JoinChatPage />,
       },
       {
         path: ":chatId",

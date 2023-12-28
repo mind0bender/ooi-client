@@ -9,17 +9,17 @@ import {
 import { socketContext } from "../components/contextproviders/socketprovider";
 import { Socket } from "socket.io-client";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import { NavigateFunction, useNavigate } from "react-router-dom";
 
 interface RoomExistStatus {
   roomId: string;
   exists: boolean | null;
 }
 
-export default function CreatePage() {
+export default function JoinChatPage() {
   const socket: Socket | null = useContext<Socket | null>(socketContext);
 
-  const navigate = useNavigate();
+  const navigate: NavigateFunction = useNavigate();
 
   const [roomExists, setRoomExists] = useState<RoomExistStatus>({
     roomId: "",
@@ -27,39 +27,43 @@ export default function CreatePage() {
   });
 
   useEffect(() => {
-    function handleRoomCreated(roomId: string) {
-      navigate(`/chats/${roomId}`);
-      toast.success(
-        <div>
-          room{" "}
-          <code className={`bg-white bg-opacity-20 px-1 py-0.5 rounded-sm`}>
-            {roomId}
-          </code>{" "}
-          created
-        </div>
-      );
-    }
-    function handleRoomExists(roomId: string) {
-      toast.error(
-        <div>
-          room{" "}
-          <code className={`bg-white bg-opacity-20 px-1 py-0.5 rounded-sm`}>
-            {roomId}
-          </code>{" "}
-          already exists
-        </div>
-      );
+    function handleAskJoin({
+      exists,
+      roomId,
+    }: {
+      exists: boolean;
+      roomId: string;
+    }) {
+      if (exists) {
+        navigate(`/chats/${roomId}`);
+        toast.success(
+          <div>
+            asking for permission to join{" "}
+            <code className={`bg-white bg-opacity-20 px-1 py-0.5 rounded-sm`}>
+              {roomId}
+            </code>
+          </div>
+        );
+      } else {
+        toast.warn(
+          <div>
+            room{" "}
+            <code className={`bg-white bg-opacity-20 px-1 py-0.5 rounded-sm`}>
+              {roomId}
+            </code>{" "}
+            does not exists.
+          </div>
+        );
+      }
     }
     function handleCheckRoomExistsRes({ roomId, exists }: RoomExistStatus) {
       setRoomExists({ roomId, exists });
     }
-    socket?.on("room_created", handleRoomCreated);
-    socket?.on("room_exists", handleRoomExists);
+    socket?.on("join_room_ask_res", handleAskJoin);
     socket?.on("check_room_exists_res", handleCheckRoomExistsRes);
 
     return () => {
-      socket?.off("room_created", handleRoomCreated);
-      socket?.off("room_exists", handleRoomExists);
+      socket?.off("join_room_ask_res", handleAskJoin);
       socket?.off("check_room_exists_res", handleCheckRoomExistsRes);
     };
   }, [socket]);
@@ -67,7 +71,7 @@ export default function CreatePage() {
   const [roomId, setRoomId] = useState<string>("");
 
   const createRoom = useCallback(() => {
-    socket?.emit("create_room", roomId);
+    socket?.emit("join_room_ask", roomId);
   }, [roomId, socket]);
 
   const roomIdChangeHandler = useCallback<ChangeEventHandler>(
@@ -80,7 +84,7 @@ export default function CreatePage() {
   return (
     <div className={`grow flex flex-col justify-center items-center`}>
       <div className={`flex flex-col gap-4 justify-center items-center`}>
-        <h2 className={`text-2xl md:text-4xl`}>Create a room</h2>
+        <h2 className={`text-2xl md:text-4xl`}>Join a room</h2>
         <div className={`flex flex-col gap-1 grow`}>
           <div className={`flex justify-center items-center`}>
             <input
@@ -112,7 +116,7 @@ export default function CreatePage() {
                   x2="20"
                   y2="30"
                   stroke="rgb(37 99 235)"
-                  stroke-width="3"
+                  strokeWidth="3"
                 />
                 <line
                   x1="10"
@@ -120,7 +124,7 @@ export default function CreatePage() {
                   x2="30"
                   y2="20"
                   stroke="rgb(37 99 235)"
-                  stroke-width="3"
+                  strokeWidth="3"
                 />
               </svg>
             </button>

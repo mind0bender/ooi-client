@@ -17,7 +17,7 @@ export default function Homepage(): JSX.Element {
         </Link>
         <ul className={`flex gap-2 md:gap-4 text-lg font-semibold`}>
           <li>
-            <Link to={`/join`}>
+            <Link to={`/chats/join`}>
               <div
                 className={`border border-blue-600 px-4 py-1 rounded-md text-blue-600 font-normal`}
               >
@@ -38,7 +38,7 @@ export default function Homepage(): JSX.Element {
         className={`grow flex flex-col items-center justify-center bg-black dark:bg-gradient-to-b dark:from-blue-950 dark:to-slate-950`}
       >
         <div
-          className={`bg-gradient-to-b from-slate-100 dark:to-slate-950 to-slate-950 dark:from-blue-200 bg-clip-text text-transparent`}
+          className={`bg-gradient-to-b from-slate-100 dark:to-transparent to-slate-950 dark:from-blue-200 bg-clip-text text-transparent`}
         >
           <div className={`flex flex-col gap-4 text-xl md:text-3xl`}>
             <div>
@@ -46,10 +46,12 @@ export default function Homepage(): JSX.Element {
               and simple,
             </div>
             <div>
-              <div className={`text-xl md:text-3xl`}>ananymous messenger</div>
-              <div className={`text-lg md:text-2xl`}>ananymous messenger</div>
-              <div className={`text-md md:text-lg`}>ananymous messenger</div>
-              <div className={`text-sm md:text-sm`}>ananymous messenger</div>
+              <div className={`text-xl md:text-3xl`}>anonymous messenger</div>
+              <div className={`text-lg md:text-2xl`}>anonymous messenger</div>
+              <div className={`text-base md:text-xl`}>anonymous messenger</div>
+              <div className={`text-sm md:text-lg`}>anonymous messenger</div>
+              <div className={`text-xs md:text-base`}>anonymous messenger</div>
+              <div className={`text-xs md:text-xs`}>anonymous messenger</div>
             </div>
           </div>
         </div>
